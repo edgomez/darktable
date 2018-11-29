@@ -57,7 +57,7 @@ DT_MODULE_INTROSPECTION(3, dt_iop_temperature_params_t)
 
 #define DT_IOP_NUM_OF_STD_TEMP_PRESETS 4
 
-#define COLORED_SLIDERS 0
+#define COLORED_SLIDERS 1
 
 //storing the last picked color (if any)
 static float old[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
