@@ -28,7 +28,8 @@ mark_as_advanced(LENSFUN_INCLUDE_DIR)
 
 set(LENSFUN_NAMES ${LENSFUN_NAMES} lensfun liblensfun)
 find_library(LENSFUN_LIBRARY NAMES ${LENSFUN_NAMES} 
-	HINTS ENV LENSFUN_LIB_DIR)
+	HINTS ${Lensfun_PKGCONF_LIBRARY_DIRS}
+	ENV LENSFUN_LIB_DIR)
 mark_as_advanced(LENSFUN_LIBRARY)
 
 # handle the QUIETLY and REQUIRED arguments and set LENSFUN_FOUND to TRUE if

@@ -44,6 +44,9 @@
 #if LF_VERSION < ((0 << 24) | (2 << 16) | (9 << 8) | 0)
 #define LF_SEARCH_SORT_AND_UNIQUIFY 2
 #endif
+#if LF_VERSION >= ((0 << 24) | (3 << 16) | (95 << 8) | 0)
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#endif
 
 DT_MODULE_INTROSPECTION(5, dt_iop_lensfun_params_t)
 
