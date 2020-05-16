@@ -197,6 +197,11 @@ if(WIN32)
   configure_file("${CMAKE_CURRENT_SOURCE_DIR}/win/darktable.rc.in" "${CMAKE_CURRENT_BINARY_DIR}/win/darktable.rc")
 endif(WIN32)
 
+if(USE_WEBP)
+  list(APPEND SOURCE_FILES "common/imageio_webp.c")
+  list(APPEND HEADER_FILES "common/imageio_webp.h")
+endif(USE_WEBP)
+
 set(SOURCES ${SOURCE_FILES} ${HEADER_FILES})
 
 if(CMAKE_SYSTEM_PROCESSOR STREQUAL "ppc64le")
@@ -349,6 +354,7 @@ if(USE_WEBP)
     include_directories(SYSTEM ${WebP_INCLUDE_DIRS})
     list(APPEND LIBS ${WebP_LIBRARIES})
     add_definitions(${WebP_DEFINITIONS})
+    set(DT_SUPPORTED_EXTENSIONS ${DT_SUPPORTED_EXTENSIONS} webp CACHE INTERNAL "")
   endif(WebP_FOUND)
 endif(USE_WEBP)
 

@@ -45,6 +45,7 @@
 #ifdef HAVE_LIBAVIF
 #include "common/imageio_avif.h"
 #endif
+#include "common/imageio_webp.h"
 #include "common/mipmap_cache.h"
 #include "common/styles.h"
 #include "control/conf.h"
@@ -480,7 +481,10 @@ static const uint8_t _imageio_ldr_magic[] = {
   /* binary NetPNM images: pbm, pgm and pbm */
   0x00, 0x00, 0x02, 0x50, 0x34,
   0x00, 0x00, 0x02, 0x50, 0x35,
-  0x00, 0x00, 0x02, 0x50, 0x36
+  0x00, 0x00, 0x02, 0x50, 0x36,
+
+  /* webp image */
+  0x00, 0x08, 4, 'W', 'E', 'B', 'P'
 };
 
 gboolean dt_imageio_is_ldr(const char *filename)
@@ -607,6 +611,17 @@ dt_imageio_retval_t dt_imageio_open_ldr(dt_image_t *img, const char *filename, d
     img->flags &= ~DT_IMAGE_HDR;
     img->flags |= DT_IMAGE_LDR;
     img->loader = LOADER_PNM;
+    return ret;
+  }
+
+  ret = dt_imageio_open_webp(img, filename, buf);
+  if(ret == DT_IMAGEIO_OK || ret == DT_IMAGEIO_CACHE_FULL)
+  {
+    img->buf_dsc.filters = 0u;
+    img->flags &= ~DT_IMAGE_RAW;
+    img->flags &= ~DT_IMAGE_HDR;
+    img->flags |= DT_IMAGE_LDR;
+    img->loader = LOADER_WEBP;
     return ret;
   }
 
